@@ -1,6 +1,35 @@
 # prettyPhoto
 
-In this package only Facebook theme
+In this package contains Facebook theme only
+
+![Facebook pretty photo theme](http://www.no-margin-for-errors.com/wp-content/uploads/2009/11/facebook.jpg)
+
+**Attention!** There are some changes in library js code: I increase container size for images for correct view on mobile devices.
+
+The following minor changes have been made to the code:
+The value 200 was replaced with 40. To stretch the image across the entire width of the screen.
+
+`jquery.prettyPhoto.js`:
+
+```javascript
+while (!fitting){
+    if((pp_containerWidth > windowWidth)){
+        imageWidth = (windowWidth - 40); // here was 200
+        imageHeight = (height/width) * imageWidth;
+    }else if((pp_containerHeight > windowHeight)){
+        imageHeight = (windowHeight - 40); // here was 200
+        imageWidth = (width/height) * imageHeight;
+    }else{
+        fitting = true;
+    };
+
+    pp_containerHeight = imageHeight, pp_containerWidth = imageWidth;
+};
+```
+
+Otherwise the plug-in code is original.
+
+## Usage
 
 ##### Create the element in your HTML:
 ```html
@@ -10,13 +39,11 @@ In this package only Facebook theme
 ```
 
 ##### Include jQuery:
-
 ```html
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
 ```
 
 ##### Include html:
-
 ```html
 	<link rel="stylesheet" type="text/css" href="/css/prettyPhoto.css" />
 	<script type="text/javascript" src="js/jquery.prettyPhoto.js"></script>
@@ -28,12 +55,10 @@ In this package only Facebook theme
 ```
 
 #### In the main.js:
-
 ```javascript
 if( $( "a[rel^='prettyPhoto']" ).length > 0 ) {
 	$( "a[rel^='prettyPhoto']" ).prettyPhoto( {
 		animation_speed: 'fast',
-		autoplay_slideshow: true,
 		slideshow: 3000,
 		opacity: 0.60,
 		show_title: true,
@@ -44,12 +69,20 @@ if( $( "a[rel^='prettyPhoto']" ).length > 0 ) {
 		theme: 'facebook',
 		modal: false,
 		social_tools: false,
+		allow_resize: true,
+		changepicturecallback: function () {
+		    // hide expand icon on small screens
+            let windowWidth = $(window).width(),
+                $pp_pic_holder = $('.pp_pic_holder');
+            if (imgPreloader.width > windowWidth) {
+                $pp_pic_holder.find('.pp_expand').hide();
+            }
+        },
 	} );
 }
 ```
 
 ### All the possibilities
-
 ```javascript
 if( $( "a[rel^='prettyPhoto']" ).length > 0 ) {
 	$( "a[rel^='prettyPhoto']" ).prettyPhoto( {
@@ -139,4 +172,4 @@ if( $( "a[rel^='prettyPhoto']" ).length > 0 ) {
 }
 ```
 
-http://www.no-margin-for-errors.com/projects/prettyPhoto-jquery-lightbox-clone/
+[Pretty Photo Site](http://www.no-margin-for-errors.com/projects/prettyPhoto-jquery-lightbox-clone/)
