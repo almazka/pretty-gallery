@@ -71,8 +71,8 @@ if( $( "a[rel^='prettyPhoto']" ).length > 0 ) {
 		social_tools: false,
 		allow_resize: true,
 		changepicturecallback: function () {
-		    // hide expand icon on small screens
-            let windowWidth = $(window).width(),
+			// hide expand icon on small screens
+            var windowWidth = $(window).width(),
                 $pp_pic_holder = $('.pp_pic_holder');
             if (imgPreloader.width > windowWidth) {
                 $pp_pic_holder.find('.pp_expand').hide();
